@@ -144,11 +144,27 @@ const App: React.FC = () => {
       
       const opponentPowerCards = opponentHand.filter(c => c.type === 'power') as PowerCard[];
       let powerCardPlayed = false;
+      const isPlayerInDanger = playerHand.length <= 2;
 
       if(opponentPowerCards.length > 0) {
           for(const powerCard of opponentPowerCards) {
-              const config = POWER_CARD_CONFIG[powerCard.power];
-              if (Math.random() < config.chance) {
+              let chance = POWER_CARD_CONFIG[powerCard.power].chance;
+              if (isPlayerInDanger) {
+                  switch(powerCard.power) {
+                      case 'switch':
+                          chance = 0.35;
+                          break;
+                      case 'addUp':
+                          chance = 0.20;
+                          break;
+                      case 'colorShuffle':
+                      case 'numberShuffle':
+                          chance = 0.075;
+                          break;
+                  }
+              }
+
+              if (Math.random() < chance) {
                   powerCardPlayed = true;
                   handlePlayCard(powerCard, opponentHand, setOpponentHand);
                   
