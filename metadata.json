@@ -1,0 +1,5 @@
+{
+  "name": "Chaos Cards",
+  "description": "A card game based on Uno where players match cards by number or color. The opponent has special power cards with unique abilities that can be played with a certain probability, adding an element of chaos to the game.",
+  "requestFramePermissions": []
+}
